@@ -1,0 +1,24 @@
+{
+  "name": "node-cfssl",
+  "version": "1.0.0",
+  "description": "cfssl NodeJS library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsrdesarrollo/node-cfssl.git"
+  },
+  "keywords": [
+    "cfssl",
+    "api",
+    "cloudflare"
+  ],
+  "author": "@rsrdesarrollo",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/rsrdesarrollo/node-cfssl/issues"
+  },
+  "homepage": "https://github.com/rsrdesarrollo/node-cfssl#readme"
+}

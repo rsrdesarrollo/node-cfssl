@@ -16,7 +16,7 @@ exports.test_info_with_no_errors = function(test) {
 
 
 exports.test_newcert_with_no_errors = function (test){
-    test.expect(1);
+    //test.expect(1);
     var csr = {
         CN: 'www.example.com',
         hosts:['www.example.com'],
@@ -35,9 +35,8 @@ exports.test_newcert_with_no_errors = function (test){
     };
     cli.newcert(csr, function(err, res){
         test.notEqual(res, null, "Result from newcert query is null.");
-        if(!err){
-            console.log(res.certificate);
-            //console.log(JSON.stringify(res, null, ' '));
+        if(err){
+            test.ok(false, 'Error '+JSON.stringify(err));
         }
         test.done();
     });
@@ -46,7 +45,7 @@ exports.test_newcert_with_no_errors = function (test){
 exports.test_sign_with_no_errors = function (test){
     test.expect(2);
 
-    pem.createCRS({
+    pem.createCSR({
         keyBitsize: 2048,
         country: 'CO',
         state: 'State',

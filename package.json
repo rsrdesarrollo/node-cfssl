@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/rsrdesarrollo/node-cfssl/issues"
   },
-  "homepage": "https://github.com/rsrdesarrollo/node-cfssl#readme"
+  "homepage": "https://github.com/rsrdesarrollo/node-cfssl#readme",
+  "dependencies": {
+    "pem": "^1.8.1"
+  }
 }

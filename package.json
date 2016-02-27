@@ -1,6 +1,6 @@
 {
   "name": "node-cfssl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cfssl NodeJS library",
   "main": "index.js",
   "scripts": {

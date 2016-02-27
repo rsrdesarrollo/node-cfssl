@@ -9,14 +9,14 @@ var cli = new Cfssl_cli();
 exports.test_info_with_no_errors = function(test) {
     test.expect(1);
     cli.info("default", function(err, res){
-        test.notEqual(res, null, "Result from info query is null.");
+        test.equal(err, null, 'Error in info: '+err);
         test.done();
     });
 };
 
 
 exports.test_newcert_with_no_errors = function (test){
-    //test.expect(1);
+    test.expect(1);
     var csr = {
         CN: 'www.example.com',
         hosts:['www.example.com'],
@@ -34,17 +34,13 @@ exports.test_newcert_with_no_errors = function (test){
         }
     };
     cli.newcert(csr, function(err, res){
-        test.notEqual(res, null, "Result from newcert query is null.");
-        if(err){
-            test.ok(false, 'Error '+JSON.stringify(err));
-        }
+        test.equal(err, null, 'Error in newcert: '+err);
         test.done();
     });
 };
 
-exports.test_sign_with_no_errors = function (test){
-    test.expect(2);
 
+exports.test_sign_with_no_errors = function (test){
     pem.createCSR({
         keyBitsize: 2048,
         country: 'CO',
@@ -57,13 +53,43 @@ exports.test_sign_with_no_errors = function (test){
     }, function(error, resp){
 
         cli.sign(resp.csr, function(err, res){
-            test.notEqual(res, null, "Result from sign query is null.");
-            if(!err){
-                pem.readCertificateInfo(res.certificate, function(err, cert){
-                    test.equal(cert.commonName, 'client.cfssl', 'Diferent commonName');
-                    test.done();
-                });
-            }
+            test.equal(err, null, 'Error in sign '+err);
+
+            if(err)
+                return test.done();
+
+            pem.readCertificateInfo(res.certificate, function(err, cert){
+                test.equal(cert.commonName, 'client.cfssl', 'Diferent commonName');
+                test.done();
+            });
         });
     });
+};
+
+
+exports.test_init_ca_with_no_errors = function (test){
+    test.expect(1);
+
+    cli.init_ca(
+        ["example.com"],
+        [{
+            C: 'CO',
+            ST: 'State',
+            L: 'Location',
+            O: 'Organization',
+            OU: 'Org Unit'}],
+        {
+            key: {
+                algo: 'ecdsa',
+                size: 384
+            },
+            CA: {
+                Expiry: '720h'
+            }
+        },
+        function (err, res) {
+            test.equal(err, null, "Error in init_ca: "+err);
+            test.done();
+        }
+    );
 };
